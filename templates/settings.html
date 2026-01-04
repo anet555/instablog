@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='strict.css') }}">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="logo">Settings ⚙️</div>
+    <a href="/home" class="logout-btn">Back</a>
+</nav>
+
+<main class="feed">
+    <div class="post-card">
+        <h3>Update Username</h3>
+        <form method="post">
+            <input name="username" value="{{ session.username }}">
+            <button>Save Changes</button>
+        </form>
+    </div>
+
+    <div class="post-card">
+        <h3>Account</h3>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</main>
+
+</body>
+</html>

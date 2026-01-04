@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InstaBlog Feed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap Icons for buttons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='strict.css') }}">
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<nav class="top-nav">
+    <div class="logo">InstaBlog</div>
+    <div class="nav-actions">
+        <span class="user">@{{ session.username }}</span>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</nav>
+
+<!-- ================= MAIN LAYOUT ================= -->
+<div class="layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+        <a href="/home" class="side-btn active"><i class="bi bi-house"></i> Feed</a>
+        <a href="#create" class="side-btn"><i class="bi bi-plus-circle"></i> Create</a>
+        <a href="/likes" class="side-btn"><i class="bi bi-heart"></i> Likes</a>
+        <a href="/settings" class="side-btn"><i class="bi bi-gear"></i> Settings</a>
+    </aside>
+
+    <!-- FEED -->
+    <main class="feed">
+
+        <!-- ================= CREATE POST ================= -->
+        <div class="create-card" id="create">
+            <form method="post" action="/add_post">
+                <input name="title" placeholder="Post title" required>
+                <textarea name="content" placeholder="Share your thoughts..." required></textarea>
+                <button>Publish</button>
+            </form>
+        </div>
+
+        <!-- ================= POSTS ================= -->
+        {% for post in posts %}
+        <article class="post-card">
+
+            <!-- POST HEADER -->
+            <header class="post-header">
+                <div class="avatar">{{ post.username[0]|upper }}</div>
+                <div>
+                    <h4>{{ post.username }}</h4>
+                    <span>Just now</span>
+                </div>
+
+                <!-- EDIT / DELETE if owner -->
+                {% if post.user_id == session.user_id %}
+                <div class="post-menu">
+                    <a href="/edit/{{ post.post_id }}"><i class="bi bi-pencil"></i></a>
+                    <a href="/delete/{{ post.post_id }}"><i class="bi bi-trash"></i></a>
+                </div>
+                {% endif %}
+            </header>
+
+            <!-- POST CONTENT -->
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+
+            <!-- POST ACTIONS -->
+            <footer class="post-actions">
+                <a href="/like/{{ post.post_id }}">
+                    {% if post.liked %}❤️{% else %}🤍{% endif %}
+                    {{ post.like_count }}
+                </a>
+                <span>💬 {{ post.comments|length }}</span>
+            </footer>
+
+            <!-- COMMENTS -->
+            <form method="post" action="/comment/{{ post.post_id }}">
+                <input class="comment-input" name="comment" placeholder="Write a comment..." required>
+            </form>
+
+            <!-- EXISTING COMMENTS -->
+            {% for c in post.comments %}
+                <div class="comment">
+                    <b>{{ c.username }}</b> {{ c.comment }}
+                </div>
+            {% endfor %}
+
+        </article>
+        {% endfor %}
+
+    </main>
+</div>
+
+</body>
+</html>

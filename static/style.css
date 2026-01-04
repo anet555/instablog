@@ -1,0 +1,157 @@
+:root {
+    --primary: #6a11cb;
+    --secondary: #ff6a88;
+    --accent: #20e3b2;
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #2d2d2d;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ================= NAV ================= */
+.top-nav {
+    height: 64px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    color: white;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.logout-btn {
+    background: white;
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ================= LAYOUT ================= */
+.layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    background: white;
+    padding: 20px;
+    height: calc(100vh - 64px);
+    border-right: 1px solid #eee;
+}
+
+.side-btn {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.side-btn.active,
+.side-btn:hover {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+}
+
+/* ================= FEED ================= */
+.feed {
+    padding: 30px;
+    max-width: 720px;
+    margin: auto;
+}
+
+/* CREATE POST */
+.create-card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.create-card input,
+.create-card textarea {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.create-card button {
+    width: 100%;
+    background: linear-gradient(to right, var(--accent), var(--secondary));
+    border: none;
+    padding: 12px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+}
+
+/* POST CARD */
+.post-card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.post-actions {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+}
+
+/* COMMENTS */
+.comment-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+}
+
+.comment {
+    margin-top: 6px;
+    font-size: 14px;
+}
+

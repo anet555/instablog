@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liked Posts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='strict.css') }}">
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="logo">Liked Posts ❤️</div>
+    <a href="/home" class="logout-btn">Back</a>
+</nav>
+
+<main class="feed">
+    {% for post in posts %}
+    <div class="post-card">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+        <small>By {{ post.username }}</small>
+    </div>
+    {% else %}
+    <p>No liked posts yet.</p>
+    {% endfor %}
+</main>
+
+</body>
+</html>
