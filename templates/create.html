@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Post</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/feed">🏠 Feed</a>
+        <a href="/create">➕ Create Post</a>
+        <a href="/settings">⚙️ Settings</a>
+        <a href="/logout">🚪 Logout</a>
+    </nav>
+</header>
+
+<main>
+    <div class="create-box">
+        <h2>Create a Post</h2>
+        <form method="post" enctype="multipart/form-data">
+            <label>Title (Optional)</label>
+            <input type="text" name="title" placeholder="Enter post title">
+
+            <label>Description</label>
+            <textarea name="description" placeholder="Explain what your post is about..." required></textarea>
+
+            <label>Image (Optional)</label>
+            <input type="file" name="image">
+
+            <button type="submit">Post</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

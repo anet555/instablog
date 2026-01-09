@@ -1,30 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Settings</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='strict.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+<header>
+    <nav>
+        <a href="/feed">🏠 Feed</a>
+        <a href="/create">➕ Create Post</a>
+        <a href="/settings">⚙️ Settings</a>
+        <a href="/logout">🚪 Logout</a>
+    </nav>
+</header>
 
-<nav class="top-nav">
-    <div class="logo">Settings ⚙️</div>
-    <a href="/home" class="logout-btn">Back</a>
-</nav>
-
-<main class="feed">
-    <div class="post-card">
-        <h3>Update Username</h3>
+<main>
+    <div class="settings-box">
+        <h2>Profile Settings</h2>
         <form method="post">
-            <input name="username" value="{{ session.username }}">
-            <button>Save Changes</button>
+            <label>Name</label>
+            <input type="text" name="name" value="{{ settings.name if settings else '' }}">
+            
+            <label>Email</label>
+            <input type="email" name="email" value="{{ settings.email if settings else '' }}">
+            
+            <label>Phone</label>
+            <input type="text" name="phone" value="{{ settings.phone if settings else '' }}">
+            
+            <label>Bio</label>
+            <textarea name="bio">{{ settings.bio if settings else '' }}</textarea>
+            
+            <label>
+                <input type="checkbox" name="private" {% if settings and settings.is_private %}checked{% endif %}>
+                Private Account
+            </label>
+            
+            <button type="submit">Save Changes</button>
         </form>
     </div>
-
-    <div class="post-card">
-        <h3>Account</h3>
-        <a href="/logout" class="logout-btn">Logout</a>
-    </div>
 </main>
-
 </body>
 </html>
+
