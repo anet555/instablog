@@ -1,37 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Post</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<header>
-    <nav>
-        <a href="/feed">🏠 Feed</a>
-        <a href="/create">➕ Create Post</a>
-        <a href="/settings">⚙️ Settings</a>
-        <a href="/logout">🚪 Logout</a>
-    </nav>
-</header>
+{% extends "base.html" %}
 
-<main>
-    <div class="create-box">
-        <h2>Create a Post</h2>
-        <form method="post" enctype="multipart/form-data">
-            <label>Title (Optional)</label>
-            <input type="text" name="title" placeholder="Enter post title">
+{% block content %}
 
-            <label>Description</label>
-            <textarea name="description" placeholder="Explain what your post is about..." required></textarea>
+<div class="center-box">
+    <h2>Create New Post</h2>
 
-            <label>Image (Optional)</label>
-            <input type="file" name="image">
+    <form method="post" enctype="multipart/form-data" class="create-form">
 
-            <button type="submit">Post</button>
-        </form>
-    </div>
-</main>
-</body>
-</html>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" id="image" name="image">
+        </div>
+
+        <button type="submit" class="post-btn">Post</button>
+
+    </form>
+</div>
+
+{% endblock %}

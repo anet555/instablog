@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SocialAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2 class="logo">SocialAI</h2>
+
+        <a href="/feed">🏠 Feed</a>
+        <a href="/create">➕ Create Post</a>
+        <a href="/settings">⚙ Settings</a>
+        <a href="/logout">🚪 Logout</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -7,63 +7,93 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<header>
-    <nav>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 class="logo">SocialAI</h2>
         <a href="/feed">🏠 Feed</a>
-        <a href="/create">➕ Create Post</a>
-        <a href="/settings">⚙️ Settings</a>
+        <a href="/create">➕ Create</a>
+        <a href="/settings">⚙ Settings</a>
         <a href="/logout">🚪 Logout</a>
-    </nav>
-</header>
+    </aside>
 
-<main class="feed-container">
-{% for post in posts %}
-<div class="post-card">
+    <!-- Main Content -->
+    <main class="content">
 
-    <div class="post-header">
-        <span class="username">{{ post.username }}</span>
+        <div class="topbar">
+            <input type="text" placeholder="Search posts...">
 
-        {% if post.user_id == user_id %}
-        <span class="post-controls">
-            <a href="/edit_post/{{ post.post_id }}">Edit</a>
-            <a href="/delete_post/{{ post.post_id }}">Delete</a>
-        </span>
-        {% endif %}
-    </div>
+            <!-- Show logged in user initial -->
+            <div class="profile-circle">
+                {{ session.username[0] if session.get("username") else "U" }}
+            </div>
+        </div>
 
-    {% if post.title %}
-        <h2 class="post-title">{{ post.title }}</h2>
-    {% endif %}
+        <!-- Pinterest Masonry Grid -->
+        <div class="masonry">
 
-    {% if post.description %}
-        <p class="post-description">{{ post.description }}</p>
-    {% endif %}
+            {% for post in posts %}
+            <div class="card">
 
-    {% if post.image %}
-        <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="post-image">
-    {% endif %}
+                <!-- ✅ HEADER WITH PROFILE PIC -->
+                <div class="card-header">
 
-    <div class="post-actions">
-        <a class="like-btn" href="/like/{{ post.post_id }}">❤️ {{ post.like_count }}</a>
-    </div>
+                    {% if post.profile_pic %}
+                        <img src="{{ url_for('static', filename='uploads/' + post.profile_pic) }}"
+                             class="feed-avatar">
+                    {% else %}
+                        <div class="feed-avatar default-avatar">
+                            {{ post.username[0] }}
+                        </div>
+                    {% endif %}
 
-    <div class="comments">
-        {% if comments_by_post.get(post.post_id) %}
-            {% for c in comments_by_post[post.post_id] %}
-                <div class="comment">
-                    <b>{{ c.username }}:</b> {{ c.comment }}
+                    <span class="username">{{ post.username }}</span>
+
                 </div>
+
+                <!-- Image -->
+                {% if post.image %}
+                <img src="{{ url_for('static', filename='uploads/' + post.image) }}">
+                {% endif %}
+
+                <!-- Body -->
+                <div class="card-body">
+                    {% if post.title %}
+                    <h4>{{ post.title }}</h4>
+                    {% endif %}
+                    <p>{{ post.description }}</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="card-actions">
+                    <a href="/like/{{ post.post_id }}" class="like-btn">
+                        ❤️ {{ post.like_count }}
+                    </a>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="comment-section">
+
+                    {% if comments_by_post.get(post.post_id) %}
+                        {% for comment in comments_by_post[post.post_id] %}
+                            <p>
+                                <b>{{ comment.username }}</b>:
+                                {{ comment.comment }}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST" action="/comment/{{ post.post_id }}">
+                        <input type="text" name="comment"
+                               placeholder="Write a comment..."
+                               required>
+                    </form>
+
+                </div>
+
+            </div>
             {% endfor %}
-        {% endif %}
 
-        <form action="/comment/{{ post.post_id }}" method="post" class="comment-form">
-            <input type="text" name="comment" placeholder="Add comment..." required>
-            <button type="submit">Post</button>
-        </form>
-    </div>
-
-</div>
-{% endfor %}
-</main>
-</body>
-</html>
+        </div>
